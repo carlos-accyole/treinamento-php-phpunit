@@ -10,6 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 class AvaliadorTest extends TestCase
 {
+    /**
+     * @var Avaliador
+     */
     private $leiloeiro;
 
     protected function setUp(): void
@@ -68,6 +71,15 @@ class AvaliadorTest extends TestCase
         $this->assertEquals(2000, $maiores[1]->getValor());
         $this->assertEquals(1700, $maiores[2]->getValor());
 
+    }
+
+    public function testLeilaoVazioNaoPodeSerAvaliado()
+    {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('Não é possível avaliar leilão vázio');
+
+        $leilao = new Leilao('Fusca Aaul');
+        $this->leiloeiro->avalia($leilao);
     }
 
     /* --------------- DADOS ---------------  */
